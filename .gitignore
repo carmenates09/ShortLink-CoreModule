@@ -1,0 +1,20 @@
+# Packages
+node_modules
+jspm_packages
+
+# Serverless
+.serverless
+.dynamodb
+lib
+
+# Webpack
+.webpack
+
+# OS
+.directory
+
+# IDEs
+.idea
+
+# Scripts
+.offline.pid

@@ -1,0 +1,54 @@
+createLink:
+  handler: handler.index
+  description: Creates a links.
+  events:
+    - http:
+        path: /v1/links
+        method: post
+        cors:
+          origin: '*'
+          headers:
+            - Content-Type
+            - X-Amz-Date
+            - Authorization
+            - X-Api-Key
+            - X-Amz-Security-Token
+            - X-Amz-User-Agent
+            - Access-Control-Allow-Headers
+            - Access-Control-Allow-Origin
+
+getLinkById:
+  handler: handler.index
+  description: Get a post by its id.
+  events:
+    - http:
+        path: /v1/links/{linkId}
+        method: get
+        cors: true
+
+deleteLinkById:
+  handler: handler.index
+  description: Deletes a post by its id.
+  events:
+    - http:
+        path: /v1/links/{linkId}
+        method: delete
+        cors: true
+
+updateLinkById:
+  handler: handler.index
+  description: Updates a post by its id.
+  events:
+    - http:
+        path: /v1/links/{linkId}
+        method: patch
+        cors: true
+
+getAllLinks:
+  handler: handler.index
+  description: Get all posts.
+  events:
+    - http:
+        path: /v1/links
+        method: get
+        cors: true

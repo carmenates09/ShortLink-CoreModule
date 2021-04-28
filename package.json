@@ -1,0 +1,91 @@
+{
+  "name": "@vifros/serverless-service-blueprint",
+  "version": "0.0.24",
+  "description": "Very opinionated serverless service blueprint for faster and efficient development.",
+  "main": "handler.js",
+  "license": "MIT",
+  "scripts": {
+    "postinstall": "npx serverless dynamodb install",
+    "pretest": "npm run posttest && ./scripts/start-offline.sh",
+    "test": "npx mocha",
+    "posttest": "./scripts/stop-offline.sh",
+    "start": "NODE_OPTIONS=--max_old_space_size=8192 npm run watch",
+    "lint": "tslint '*.ts'",
+    "deploy-dev": "sls deploy",
+    "deploy-uat": "sls deploy --stage uat",
+    "deploy-prod": "sls deploy --stage prod",
+    "watch": "NODE_OPTIONS=--max_old_space_size=8192 sls offline --stage=local start",
+    "kill-dynamodb": "kill $(lsof -t -i:9000) || kill $(lsof -t -i:9001)",
+    "link-libs": "npm unlink @vifros/serverless-json-api && npm link @vifros/serverless-json-api"
+  },
+  "homepage": "https://gitlab.com/vifros/blueprints/serverless-service-blueprint",
+  "bugs": "https://gitlab.com/vifros/blueprints/serverless-service-blueprint/issues",
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "serverless",
+    "service",
+    "blueprint",
+    "boilerplate",
+    "architecture",
+    "rest",
+    "api",
+    "jsonapi",
+    "json-api",
+    "expressjs",
+    "express",
+    "typescript",
+    "webpack"
+  ],
+  "contributors": [
+    {
+      "name": "Diosney",
+      "email": "diosney.s@gmail.com"
+    },
+    {
+      "name": "Jose Carlos Ramos",
+      "email": "jramoscarmenates@gmail.com"
+    },
+    {
+      "name": "Vifros Corp.",
+      "email": "vifroscorp@gmail.com"
+    }
+  ],
+  "dependencies": {
+    "@vifros/serverless-json-api": "0.0.20",
+    "aws-lambda": "^0.1.2",
+    "serverless-http": "^2.2.0",
+    "shortid": "^2.2.16",
+    "source-map-support": "^0.5.13",
+    "uuid": "^3.3.2"
+  },
+  "devDependencies": {
+    "@types/async": "^3.0.1",
+    "@types/aws-lambda": "^8.10.31",
+    "@types/chai": "^4.2.0",
+    "@types/mocha": "^5.2.7",
+    "@types/node": "^12.7.1",
+    "@types/supertest": "^2.0.8",
+    "@types/uuid": "^3.4.5",
+    "async": "^3.1.0",
+    "chai": "^4.2.0",
+    "mocha": "^6.2.0",
+    "serverless": "^1.49.0",
+    "serverless-dynamodb-local": "^0.2.38",
+    "serverless-offline": "^5.10.1",
+    "serverless-webpack": "^5.3.1",
+    "supertest": "^4.0.2",
+    "ts-loader": "^6.0.4",
+    "ts-node": "^8.3.0",
+    "typescript": "^3.5.3",
+    "webpack": "^4.39.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.com/vifros/blueprints/serverless-service-blueprint.git"
+  },
+  "engines": {
+    "node": "8.10.*"
+  }
+}

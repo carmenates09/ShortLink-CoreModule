@@ -1,0 +1,24 @@
+getInfoById:
+  handler: handler.index
+  description: Get an info by its id.
+  events:
+    - http:
+        path: /v1/info/{infoId}
+        method: get
+        cors: true
+
+getAllInfo:
+  handler: handler.index
+# TODO @josecarlos: Uncomment this or move to a readme file.
+#  vpc:
+#    securityGroupIds:
+#      - sg-XXXXXX
+#    subnetIds:
+#      - subnet-XXXXXXXXX
+#      - subnet-XXXXXXXXZ
+  description: Get all info.
+  events:
+    - http:
+        path: /v1/info
+        method: get
+        cors: true

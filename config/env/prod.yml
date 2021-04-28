@@ -1,0 +1,9 @@
+SERVICE_STAGE: ${self:provider.stage}
+
+# DynamoDB
+SERVICE_DYNAMODB_TABLE_THROUGHPUT_READ: 1
+SERVICE_DYNAMODB_TABLE_THROUGHPUT_WRITE: 1
+
+SERVICE_DYNAMODB_TABLE_USERS: '${self:provider.stage}-Users'
+SERVICE_DYNAMODB_TABLE_POSTS: '${self:provider.stage}-Posts'
+SERVICE_DYNAMODB_TABLE_TAGS: '${self:provider.stage}-Tags'

@@ -1,0 +1,3 @@
+exampleStandAlone:
+  handler: handler.exampleStandAlone
+  description: Example of a standalone lambda.

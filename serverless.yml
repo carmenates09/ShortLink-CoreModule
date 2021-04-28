@@ -1,0 +1,74 @@
+service:
+  # Real name would be something like {projectName}-{moduleName}.
+  name: shortLink-coreModule
+
+frameworkVersion: ">=1.1.0 <2.0.0"
+
+plugins:
+  - serverless-webpack
+  - serverless-dynamodb-local
+  - serverless-offline
+
+custom:
+  # All environments with specific values per environment.
+  environments:
+    dev: ${file(./config/env/dev.yml)}
+    local: ${file(./config/env/local.yml)}
+    prod: ${file(./config/env/prod.yml)}
+    test: ${file(./config/env/test.yml)}
+
+  dynamodb:
+    stages:
+      - local
+      - test
+    start:
+      port: ${self:custom.environments.${self:provider.stage}.SERVICE_TEST_DYNAMODB_PORT, 9000}
+      inMemory: true
+      migrate: true
+      heapInitial: 500m
+      heapMax: 1g
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  region: us-east-1
+  profile: personal
+
+  # Get stage from deployed option, else `dev` by default.
+  stage: ${opt:stage, 'dev'}
+
+  # Too much clutter that needs to consume space since lambdas are not deleted on new updates.
+  versionFunctions: false
+
+  # Selected environment with right values.
+  # To deploy: `serverless deploy --stage dev`
+  environment: ${self:custom.environments.${self:provider.stage}}
+
+  tags:
+    # To help with cost estimations.
+    environment: ${self:provider.stage}
+
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+        - dynamodb:DescribeTable
+      Resource:
+        - { 'Fn::GetAtt': ['DynamoDBTableLinks', 'Arn' ] }
+        - Fn::Join:
+            - "/"
+            - - { "Fn::GetAtt": ["DynamoDBTableLinks", "Arn" ] }
+              - "index/*"
+
+functions:
+  - ${file(config/functions/info.yml)}
+  - ${file(config/functions/links.yml)}
+  - ${file(config/functions/standalone.yml)}
+
+resources:
+  - ${file(config/resources/dynamodb/links.yml)}
