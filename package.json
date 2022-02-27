@@ -1,5 +1,5 @@
 {
-  "name": "@vifros/serverless-service-blueprint",
+  "name": "@vifros/serverless-service-short-link",
   "version": "0.0.24",
   "description": "Very opinionated serverless service blueprint for faster and efficient development.",
   "main": "handler.js",
@@ -14,7 +14,7 @@
     "deploy-dev": "sls deploy",
     "deploy-uat": "sls deploy --stage uat",
     "deploy-prod": "sls deploy --stage prod",
-    "watch": "NODE_OPTIONS=--max_old_space_size=8192 sls offline --stage=local start",
+    "watch": "NODE_OPTIONS=--max_old_space_size=8192 sls offline --noPrependStageInUrl --stage=local start",
     "kill-dynamodb": "kill $(lsof -t -i:9000) || kill $(lsof -t -i:9001)",
     "link-libs": "npm unlink @vifros/serverless-json-api && npm link @vifros/serverless-json-api"
   },
@@ -53,37 +53,37 @@
     }
   ],
   "dependencies": {
-    "@vifros/serverless-json-api": "0.0.20",
+    "@vifros/serverless-json-api": "0.0.21",
     "aws-lambda": "^0.1.2",
-    "serverless-http": "^2.2.0",
+    "serverless-http": "^2.7.0",
     "shortid": "^2.2.16",
-    "source-map-support": "^0.5.13",
-    "uuid": "^3.3.2"
+    "source-map-support": "^0.5.21",
+    "uuid": "^3.4.0"
   },
   "devDependencies": {
-    "@types/async": "^3.0.1",
-    "@types/aws-lambda": "^8.10.31",
-    "@types/chai": "^4.2.0",
+    "@types/async": "^3.2.12",
+    "@types/aws-lambda": "^8.10.92",
+    "@types/chai": "^4.3.0",
     "@types/mocha": "^5.2.7",
-    "@types/node": "^12.7.1",
-    "@types/supertest": "^2.0.8",
-    "@types/uuid": "^3.4.5",
-    "async": "^3.1.0",
-    "chai": "^4.2.0",
-    "mocha": "^6.2.0",
-    "serverless": "^1.49.0",
-    "serverless-dynamodb-local": "^0.2.38",
-    "serverless-offline": "^5.10.1",
-    "serverless-webpack": "^5.3.1",
+    "@types/node": "^12.20.46",
+    "@types/supertest": "^2.0.11",
+    "@types/uuid": "^3.4.10",
+    "async": "^3.2.3",
+    "chai": "^4.3.6",
+    "mocha": "^6.2.3",
+    "serverless": "^3.4.0",
+    "serverless-dynamodb-local": "^0.2.40",
+    "serverless-offline": "^8.5.0",
+    "serverless-webpack": "^5.6.1",
     "supertest": "^4.0.2",
-    "ts-loader": "^6.0.4",
-    "ts-node": "^8.3.0",
-    "typescript": "^3.5.3",
-    "webpack": "^4.39.2"
+    "ts-loader": "^6.2.2",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.10",
+    "webpack": "^4.46.0"
   },
   "repository": {
     "type": "git",
-    "url": "https://gitlab.com/vifros/blueprints/serverless-service-blueprint.git"
+    "url": "https://git@github.com/carmenates09/ShortLink-CoreModule.git"
   },
   "engines": {
     "node": "8.10.*"

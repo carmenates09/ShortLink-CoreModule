@@ -1,8 +1,7 @@
-service:
-  # Real name would be something like {projectName}-{moduleName}.
-  name: shortLink-coreModule
+# Real name would be something like {projectName}-{moduleName}.
+service: shortLink-coreModule
 
-frameworkVersion: ">=1.1.0 <2.0.0"
+frameworkVersion: ">=3.1.0 <4.0.0"
 
 plugins:
   - serverless-webpack
@@ -48,22 +47,24 @@ provider:
     # To help with cost estimations.
     environment: ${self:provider.stage}
 
-  iamRoleStatements:
-    - Effect: Allow
-      Action:
-        - dynamodb:Query
-        - dynamodb:Scan
-        - dynamodb:GetItem
-        - dynamodb:PutItem
-        - dynamodb:UpdateItem
-        - dynamodb:DeleteItem
-        - dynamodb:DescribeTable
-      Resource:
-        - { 'Fn::GetAtt': ['DynamoDBTableLinks', 'Arn' ] }
-        - Fn::Join:
-            - "/"
-            - - { "Fn::GetAtt": ["DynamoDBTableLinks", "Arn" ] }
-              - "index/*"
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - dynamodb:Query
+            - dynamodb:Scan
+            - dynamodb:GetItem
+            - dynamodb:PutItem
+            - dynamodb:UpdateItem
+            - dynamodb:DeleteItem
+            - dynamodb:DescribeTable
+          Resource:
+            - { 'Fn::GetAtt': ['DynamoDBTableLinks', 'Arn' ] }
+            - Fn::Join:
+                - "/"
+                - - { "Fn::GetAtt": ["DynamoDBTableLinks", "Arn" ] }
+                  - "index/*"
 
 functions:
   - ${file(config/functions/info.yml)}
